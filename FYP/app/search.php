@@ -22,11 +22,8 @@ $result = $connect->query($sql);
         <li>
             <?php echo $row['username']; ?>
             <form name="follow" action="../app/follow.php" method="post">
-                <button type="submit" name="follow" id="follow">Follow user.</button>
-                <?php
-                $_SESSION['followRequest'] = $row['id'];
+                <button type="submit" name="follow" value="<?=$row['id']?>" id="<?=$row['id']?>">Follow user.</button>
 
-                ?>
             </form>
         </li>
     <?php
@@ -36,9 +33,6 @@ $result = $connect->query($sql);
 
 
 </ul>
-<?php
-
-?>
 </body>
 </html>
 

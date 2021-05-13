@@ -18,11 +18,10 @@ $result = $connect->query($sql);
             ?>
             <li>
                 <?php echo $row['username']; ?>
-                <form name="promote" action="follow.php" method="post">
-                    <button type="submit" name="follow" id="follow">Follow user.</button>
+                <form name="promote" action="../app/promote.php" method="post">
+                    <button type="submit" name="promote" value="<?=$row['id']?>" id="<?=$row['id']?>">Promote user to admin.</button>
                     <?php
-                    $_SESSION['followRequest'] = $row['id'];
-
+                    $_SESSION['promoteId'] = $_POST['promote'];
                     ?>
                 </form>
             </li>
@@ -30,7 +29,5 @@ $result = $connect->query($sql);
         endwhile;
     else: echo "<li>No results found</li>";
     endif; ?>
-
-
 </ul>
 

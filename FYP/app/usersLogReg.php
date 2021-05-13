@@ -52,6 +52,7 @@ if (isset($_POST['regBtn'])) {
         $_SESSION['email'] = $user['email'];
         $_SESSION['admin'] = $user['admin'];
         $_SESSION['message'] = 'Success! You are now logged in!';
+        $_SESSION['subjectView'] = 'all';
 
         $errors = array();
         header('location: mainPage.php');
@@ -92,6 +93,7 @@ if (isset($_POST['logInBtn'])){
             $_SESSION['email'] = $user['email'];
             $_SESSION['admin'] = $user['admin'];
             $_SESSION['message'] = 'Success! You are now logged in!';
+            $_SESSION['subjectView'] = 'all';
 
             header('location: mainPage.php');
             exit();

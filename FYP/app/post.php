@@ -8,11 +8,6 @@ if (isset($_POST['postBtn'])) {
 
     $errors = array();
 
-//    if (empty($_POST['userPost'])) {
-//        array_push($errors, 'Empty Post, please enter something');
-//    }
-
-
 
 
     if (count($errors) === 0) {
@@ -20,15 +15,13 @@ if (isset($_POST['postBtn'])) {
 
         $postCont = trim($_POST['userPost']);
 
-        $time = new DateTime();
-        $time->format('Y-m-d H:i:s');
-
-        $data = ['user_id' => $_SESSION['id'], 'post_contents' => $postCont, 'user_name' => $_SESSION['username']];
+        $data = ['user_id' => $_SESSION['id'], 'post_contents' => $postCont, 'user_name' => $_SESSION['username'], 'post_subject' => $_POST['subject']];
 
             insert('tblPosts', $data);
 
 
         header('location: mainPage.php');
+
         exit();
 
     }
