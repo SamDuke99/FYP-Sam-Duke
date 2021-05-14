@@ -132,14 +132,6 @@ function delete($table, $id) {
 }
 
 
-//$data = ['username' => 'joeBloggs', 'admin' => 0, 'email' => 'joeb@gmail.com', 'password' => 'password123', 'dateOfBirth' => '1999/02/09'];
-
-//$conditions = ['admin' => 0];
-
-//$id = insert('tblUser', $data);
-
-
-//displayData(selectOne('tblUser', $conditions));
 
 
 

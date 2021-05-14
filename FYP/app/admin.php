@@ -20,9 +20,9 @@ $result = $connect->query($sql);
                 <?php echo $row['username']; ?>
                 <form name="promote" action="../app/promote.php" method="post">
                     <button type="submit" name="promote" value="<?=$row['id']?>" id="<?=$row['id']?>">Promote user to admin.</button>
-                    <?php
-                    $_SESSION['promoteId'] = $_POST['promote'];
-                    ?>
+                </form>
+                <form name="delete" action="../app/delete.php" method="post">
+                    <button type="submit" name="delete" value="<?=$row['id']?>" id="<?=$row['id']?>" onclick="return confirm('Are you sure?')">Delete user account.</button>
                 </form>
             </li>
         <?php

@@ -26,8 +26,4 @@ if (isset($_POST['postBtn'])) {
 
     }
 
-
-
-
-
 }

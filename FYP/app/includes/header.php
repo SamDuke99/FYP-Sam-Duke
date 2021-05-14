@@ -5,9 +5,9 @@
     <img src="../assets/img_logo.jpg" width="80" height="121" alt="logo" />
     <h1>Cultivate</h1>
     <div class="navBar">
-        <a href="">My Profile</a>
+        <a href="../app/myProfile.php">My Profile</a>
         <a href="#">Groups</a>
-        <a href="../app/messagePage.php">Messages</a>
+        <a href="../app/messageList.php">Messages</a>
         <a href="../app/mainPage.php">Home</a>
         <a href="login.php">Log Out</a>
 

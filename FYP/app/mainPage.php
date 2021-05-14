@@ -67,6 +67,7 @@ function writeComment($cResult) {
                 <select name="subjectView" id="subjectView">
                     <optgroup label="SubjectsView">
                         <option value="all">All Subjects</option>
+                        <option value="following">Users you follow</option>
                         <option value="CompSci">CompSci</option>
                         <option value="Economics">Economics</option>
                         <option value="Maths">Maths</option>
@@ -109,14 +110,19 @@ function writeComment($cResult) {
             echo "0 results";
         }
 
-        } else {
-                //if the user has changed the filter
-        $data = $_POST['subjectView'];
-        $sql = "SELECT * FROM tblPosts WHERE post_subject= '$data' ORDER BY post_date DESC";
-        $result = $connect->query($sql);
+        } elseif ($_POST['subjectView'] == 'following') {
 
+        $user = $_SESSION['id'];
+        $sql = "SELECT * FROM tblFollowers WHERE follower_id= '$user'";
+        $fResult = $connect->query($sql);
+
+        if ($fResult->num_rows > 0) {
+        while ($row = $fResult->fetch_assoc()) {
+        $fRowId = $row['user_id'];
+        $sql = "SELECT * FROM tblPosts WHERE user_id= '$fRowId' ORDER BY post_date DESC";
+        $result = $connect->query($sql);
         if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
         $rowId = $row['post_id'];
         //main post
         writePost($row);
@@ -141,7 +147,42 @@ function writeComment($cResult) {
         echo "0 results";
     }
     }
+    }
+
+
+    } else {
+    //if the user has changed the filter
+    $data = $_POST['subjectView'];
+    $sql = "SELECT * FROM tblPosts WHERE post_subject= '$data' ORDER BY post_date DESC";
+    $result = $connect->query($sql);
+
+    if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+    $rowId = $row['post_id'];
+    //main post
+    writePost($row);
+
+    //comments
+    $cSql = "SELECT * FROM tblComments WHERE post_id= '$rowId' ORDER BY comment_date DESC";
+    $cResult = $connect->query($cSql);
+
+    writeComment($cResult);
     ?>
+    <form name="writeForm" action="comment.php" method="post">
+        <p>Write a comment:</p>
+        <p> <textarea name="userComment" id="userComment" placeholder="Type here..." rows="6" cols="101"></textarea></p>
+        <button type="submit" name="commentBtn" value="<?=$row['post_id']?>" id="<?=$row['post_id']?>">Comment.</button>
+    </form>
+</div>
+<br><br>
+<?php
+
+}
+} else {
+    echo "0 results";
+}
+}
+?>
 </div>
 </div>
 <div class="rightcolumn">
