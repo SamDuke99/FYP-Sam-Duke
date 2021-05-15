@@ -12,13 +12,13 @@ if (isset($_POST['messageBtn'])) {
     if (count($errors) === 0) {
         unset($_POST['messageBtn']);
 
-$messCont = trim($_POST['userMessage']);
+        $messCont = trim($_POST['userMessage']);
 
-$mData = ['sender_id' => $_SESSION['id'], 'receiver_id' => $_SESSION['receive'], 'message_content' => $messCont];
+        $mData = ['sender_id' => $_SESSION['id'], 'receiver_id' => $_SESSION['receive'], 'message_content' => $messCont, 'sender_name' => $_SESSION['username'], 'message_seen' => 0];
 
 
 
-insert('tblMessages', $mData);
+        insert('tblMessages', $mData);
 
 
         header('location: messageList.php');

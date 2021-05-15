@@ -9,7 +9,7 @@ function writePost($row) {
     echo "<div class=\"post\"> <p> &nbsp;  " . $row["post_subject"] . "</p></div>";
     echo "<div class=\"postCont\"> <p>" . $row["post_contents"] . "</p></div>";
     echo "<div class=\"post\"> <p> &nbsp;  " . $row["post_date"] . "</p></div>";
-    echo "<div class=\"comment\"> <p> &nbsp;  Comments: </p></div>";
+
     echo "<br>";
 }
 
@@ -88,7 +88,7 @@ function writeComment($cResult) {
             $rowId = $row['post_id'];
             //main post
             writePost($row);
-
+            echo "<div class=\"comment\"> <p> &nbsp;  Comments: </p></div>";
             //comments
             $cSql = "SELECT * FROM tblComments WHERE post_id= '$rowId' ORDER BY comment_date DESC";
             $cResult = $connect->query($cSql);
@@ -126,7 +126,7 @@ function writeComment($cResult) {
         $rowId = $row['post_id'];
         //main post
         writePost($row);
-
+        echo "<div class=\"comment\"> <p> &nbsp;  Comments: </p></div>";
         //comments
         $cSql = "SELECT * FROM tblComments WHERE post_id= '$rowId' ORDER BY comment_date DESC";
         $cResult = $connect->query($cSql);
@@ -161,7 +161,7 @@ function writeComment($cResult) {
     $rowId = $row['post_id'];
     //main post
     writePost($row);
-
+    echo "<div class=\"comment\"> <p> &nbsp;  Comments: </p></div>";
     //comments
     $cSql = "SELECT * FROM tblComments WHERE post_id= '$rowId' ORDER BY comment_date DESC";
     $cResult = $connect->query($cSql);
@@ -201,9 +201,7 @@ function writeComment($cResult) {
     ?>
     <div class="post">
         <h3>Popular Post</h3>
-        <div class="postCont"><p>Image</p></div>
-        <div class="postCont"><p>Image</p></div>
-        <div class="postCont"><p>Image</p></div>
+
     </div>
     <div class="post">
         <h3>Follow Me</h3>

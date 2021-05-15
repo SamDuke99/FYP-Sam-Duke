@@ -17,18 +17,30 @@ $rId = $rUser['id'];
 <body>
 
 <div class="message">
-    <h2><?php echo "{$rUser['username']}"?></h2>
+    <h2><?php echo "You are chatting to {$rUser['username']}"?></h2>
     <?php
 
-    $sql = "SELECT * FROM tblMessages WHERE sender_id IN('$rId','$myId') AND receiver_id IN ('$rId','$myId') ORDER BY message_date DESC;";
+    $sql = "SELECT * FROM tblMessages WHERE sender_id IN('$rId','$myId') AND receiver_id IN('$rId','$myId') ORDER BY message_date ASC;";
     $sResult = $connect->query($sql);
+    $seen = ['message_seen' => 1];
+
     if ($sResult->num_rows > 0) {
         while ($row = $sResult->fetch_assoc()) {
-            if ($row['receiver'] = $rId) {
-                echo "<div class=\"leftMsg\"> <p> &nbsp;  " . $row["message_content"] . "</p></div>";
+            if ($row['receiver_id'] == $myId) {
+                echo "<div class=\"leftMsg\">";
+                echo "<h3> &nbsp;  " . $row["message_content"] . "</h3>";
+                echo "<p> &nbsp;  " . $row["sender_name"] . "</p>";
+                echo "<p> &nbsp;  " . $row["message_date"] . "</p>";
+                update('tblMessages', $row['id'], $seen);
+                echo "</div>";
                 echo "<br>";
-            } elseif ($row['receiver'] = $myId) {
-                echo "<div class=\"rightMsg\"> <p> &nbsp;  " . $row["message_content"] . "</p></div>";
+            } elseif ($row['receiver_id'] == $rId) {
+                echo "<div class=\"rightMsg\">";
+                echo "<h3> &nbsp;  " . $row["message_content"] . "</h3>";
+                echo "<p> &nbsp;  " . $row["sender_name"] . "</p>";
+                echo "<p> &nbsp;  " . $row["message_date"] . "</p>";
+
+                echo "</div>";
                 echo "<br>";
             }
         }

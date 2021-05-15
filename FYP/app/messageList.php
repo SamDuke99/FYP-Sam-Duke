@@ -23,7 +23,7 @@ $result = $connect->query($sql);
                 <?php
                 $data = ['id' => $row['user_id']];
                    $userGot = selectOne('tblUser', $data);
-                echo $userGot['username']; ?>
+                echo "<p>" . $userGot['username'] . "</p>"; ?>
                 <form name="message" action="viewMessage.php" method="post">
                     <button type="submit" name="viewMess" value="<?=$row['user_id']?>" id="<?=$row['user_id']?>">Message</button>
                 </form>
