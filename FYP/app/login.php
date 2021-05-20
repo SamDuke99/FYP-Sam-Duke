@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (isset($_SESSION['error'])) {
+    echo '<script type="text/javascript">alert("' . $_SESSION['error'] . '");</script>';
+}
+unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,14 +18,6 @@ session_start();
 <div id="frm">
     <form action="usersLogReg.php" method="POST">
 
-        <?php //TODO proper error handling and notifications here?>
-        <?php if(count($errors) > 0): ?>
-            <?php foreach ($errors as $error): ?>
-                <div class="error">
-                <li><?php echo $error ?></li>
-            <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
 
         <p>
             <label> Username: </label>

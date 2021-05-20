@@ -55,27 +55,7 @@ function selectAll($table, $conditions = []) {
 }
 
 
-function selectOne($table, $conditions) {
 
-    global $connect;
-    $sql = "SELECT * FROM $table";
-        $count=0;
-        foreach ($conditions as $key=>$value){
-            if ($count===0) {
-                $sql = $sql . " WHERE $key=?";
-            }else {
-                $sql = $sql . " AND $key=?";
-            }
-            $count++;
-        }
-
-        $sql = $sql . " LIMIT 1";
-
-        $statement = executeQueries($sql, $conditions);
-        $results = $statement->get_result()->fetch_assoc();
-        return $results;
-
-}
 
 function insert($table, $data) {
     global $connect;
@@ -97,6 +77,42 @@ function insert($table, $data) {
     return $id;
 }
 
+
+
+
+function selectOne($table, $conditions) {
+
+    global $connect;
+    $sql = "SELECT * FROM $table";
+    $count=0;
+    foreach ($conditions as $key=>$value){
+        if ($count===0) {
+            $sql = $sql . " WHERE $key=?";
+        }else {
+            $sql = $sql . " AND $key=?";
+        }
+        $count++;
+    }
+
+    $sql = $sql . " LIMIT 1";
+
+    $statement = executeQueries($sql, $conditions);
+    $results = $statement->get_result()->fetch_assoc();
+    return $results;
+
+}
+
+function delete($table, $id) {
+    global $connect;
+
+    $sql = "DELETE FROM $table WHERE id=?";
+
+    $statement = executeQueries($sql, ['id' => $id]);
+    $id = $statement->affected_rows;
+
+    return $id;
+}
+
 function update($table, $id, $data) {
     global $connect;
 
@@ -111,27 +127,12 @@ function update($table, $id, $data) {
         }
         $count++;
     }
-
     $sql = $sql . " WHERE id =?";
     $data['id'] = $id;
     $statement = executeQueries($sql, $data);
     $id = $statement->affected_rows;
-
     return $id;
 }
-
-function delete($table, $id) {
-    global $connect;
-
-    $sql = "DELETE FROM $table WHERE id=?";
-
-    $statement = executeQueries($sql, ['id' => $id]);
-    $id = $statement->affected_rows;
-
-    return $id;
-}
-
-
 
 
 

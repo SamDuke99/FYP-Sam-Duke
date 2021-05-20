@@ -1,5 +1,10 @@
 
-
+<?php
+if (isset($_SESSION['error'])){
+    echo '<script type="text/javascript">alert("'.$_SESSION['error'].'");</script>';
+}
+unset($_SESSION['error']);
+?>
 <link rel="stylesheet" href="../assets/mainStyles.css">
 <div class="header">
     <img src="../assets/img_logo.jpg" width="80" height="121" alt="logo" />
@@ -11,7 +16,7 @@
         <a href="login.php">Log Out</a>
         <div class="dropdown">
             <button class="dropBtn">Notifications
-                <i class="fa fa-caret-down"></i>
+
             </button>
             <div class="dropdown-content">
                 <?php
@@ -19,9 +24,9 @@
                 $nSql = "SELECT * FROM tblMessages WHERE message_seen=0 AND receiver_id= '$nUser'";
                 $nResult = $connect->query($nSql);
                 if ($nResult->num_rows > 0) {
+
                     while ($nRow = $nResult->fetch_assoc()) {
                         echo "<a href='../app/messageList.php'>New message from: " . $nRow['sender_name'] ."</a>";
-
                     }
                 }
                 $fSql = "SELECT * FROM tblFollowers WHERE follow_seen=0 AND user_id= '$nUser'";
